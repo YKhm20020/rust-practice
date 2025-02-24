@@ -14,7 +14,7 @@ fn main() {
     // 同様に gen_range も非推奨になり、rand::rng().random_range に
     let secret_number = rand::rng().random_range(1..101);
 
-    println!("The secret number is: {}", secret_number);
+    // println!("The secret number is: {}", secret_number);
 
     // loop で無限ループ
     loop {
@@ -35,7 +35,11 @@ fn main() {
         // シャドーイング: 同じ変数名を再利用することで、新しい値を変数に束縛することができる
         // シャドーイングは変数の型を変換する際によく使われる
         // String::trim メソッドは文字列の両端の空白と改行を削除する
-        let guess: u32 = guess.trim().parse().expect("Please type a number!"); // parse メソッドで変換できない場合
+        // Ok, Err で処理を変えるため、match 文を使う
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,     // 結果の数値を保持する Ok 値を num に格納し、num を返す
+            Err(_) => continue, // ループを継続、Result 型なので Ok, Err の列挙子をもつ
+        };
 
         // {} はプレースホルダー、C 言語で言うところの型指定がないフォーマット指定子みたいなもの？
         println!("You guessed: {}", guess);
