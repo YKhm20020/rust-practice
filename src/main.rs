@@ -1,10 +1,19 @@
 // prelude にない型を使いたいときは、use でライブラリを明示的に指定
 // Option や Copy, String は prelude にあるので、use は不要
 use std::io;
+use rand::Rng; // Rng トレイトが乱数生成器が実装するメソッドを定義している
 
 fn main() {
     // println! はマクロ、! がつくらしい
     println!("Guess the number!");
+
+    // 1から100までの乱数を生成、101 は含まない
+    // 1..=100 と書いてもよい
+    // 0.9.0 から thread_rng が非推奨になり、rand::rng() を使うようになった
+    // 同様に gen_range も非推奨になり、rand::rng().random_range に
+    let secret_number = rand::rng().random_range(1..101);
+
+    println!("The secret number is: {}", secret_number);
 
     println!("Please input your guess.");
 
