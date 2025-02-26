@@ -1,19 +1,11 @@
 fn main() {
-    let x = 5;
+    let y = {
+        let x = 3; // なんらかの動作をして値を返さない命令である「文」
+        x + 1 // 結果値に評価される「式」、終端にセミコロンがない
 
-    // シャドーイング、x に 5 が束縛
-    // let x = を繰り返し、x の値を変更
-    let x = x + 1;
+        // let x = (let y = 6);  // let = y = 6 は値を返さないので、エラーになる
+    };
 
-    {
-        // シャドーイング、スコープ範囲内のみ x の値が 2 倍に
-        let x = x * 2;
-
-        // The value of x in the inner scope is: 12
-        println!("The value of x in the inner scope is: {}", x);
-    }
-
-    // シャドーイング、 x = x * 2 のスコープ外なので、x の値は 6
-    // The value of x is: 6
-    println!("The value of x is: {}", x);
+    // The value of y is: 4
+    println!("The value of y is: {}", y);
 }
